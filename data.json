@@ -1,0 +1,14 @@
+{
+    "rSeries": [
+        {
+            "brand": "F5",
+            "models": "r10900",
+            "Hardware Compression": "90 Gbps"
+        },
+        {
+            "brand": "F5",
+            "models": "r10800",
+            "Hardware Compression": "80 Gbps"
+        }
+    ]
+}
