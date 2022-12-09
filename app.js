@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
+const os = require('os');
 swaggerJsdoc = require("swagger-jsdoc")
 // const swaggerDocument = require('./swagger.json');
 
@@ -40,7 +41,9 @@ const specs = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    const networkInterfaces = os.networkInterfaces();
+    const hostname = os.hostname();
+    res.json({hostname, Network:networkInterfaces});
 });
 
 /**
@@ -54,6 +57,20 @@ app.get('/', (req, res) => {
  * 
  */
 app.get('/headers', (req, res) => {
+    res.send(req.headers)
+})
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     description: get hostname and get local ip address
+ *     responses:
+ *       200:
+ *         description: Success
+ * 
+ */
+app.get('/', (req, res) => {
     res.send(req.headers)
 })
 
