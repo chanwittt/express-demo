@@ -40,12 +40,6 @@ const specs = swaggerJsdoc(options);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
-app.get('/', (req, res) => {
-    const networkInterfaces = os.networkInterfaces();
-    const hostname = os.hostname();
-    res.json({hostname, Network:networkInterfaces});
-});
-
 /**
  * @swagger
  * /headers:
@@ -71,7 +65,7 @@ app.get('/headers', (req, res) => {
  * 
  */
 app.get('/', (req, res) => {
-    res.send(req.headers)
+    res.send('Requester ip = '+req.ip)
 })
 
 app.get('/method', (req, res) => {

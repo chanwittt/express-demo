@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  web1:
+    image: express
+    ports:
+      - "4001:4000"
+  web2:
+    image: express
+    ports:
+      - "4002:4000"
+  web3:
+    image: express
+    ports:
+      - "4003:4000"
+
