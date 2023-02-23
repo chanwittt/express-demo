@@ -6,8 +6,8 @@ const os = require('os');
 var morgan = require('morgan')
 swaggerJsdoc = require("swagger-jsdoc")
 // const swaggerDocument = require('./swagger.json');
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 const port = 4000;
 app.use(cors());
 app.use(morgan('dev'));
@@ -67,11 +67,31 @@ app.get('/headers', (req, res) => {
  * 
  */
 app.get('/', (req, res) => {
-    res.send('Requester ip = '+req.ip)
+    res.send('Requester ip = ' + req.ip)
 })
 
-app.get('/method', (req, res) => {
-    res.send(req.method)
+app.get('/method', async(req, res) => {
+    const apiKey = '0ae3b91ad3msh0092950f607a17cp1204ffjsn70f76814dba4'
+    const hostAPI = 'imdb8.p.rapidapi.com'
+    const baseURL = 'https://imdb8.p.rapidapi.com'
+    const config = {
+        method: 'get',
+        url: `${baseURL}/auto-complete`,
+        params: { q: this.search },
+        headers: {
+            'Content-Type': 'Application/json',
+            'X-RapidAPI-Key': apiKey,
+            'X-RapidAPI-Host': hostAPI
+        },
+    }
+    await axios(config)
+        .then(() => {
+            res.send('success')
+            // console.log(response.data.d)
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
 })
 
 app.get('/test/url', (req, res) => {
@@ -103,7 +123,7 @@ app.post('/compare', (req, res) => {
     else {
         res.send(`${num2} more than ${num1}`)
     }
-    
+
 })
 
 
