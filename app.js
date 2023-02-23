@@ -72,7 +72,8 @@ app.get('/', (req, res) => {
 })
 app.get('/chain', async(req, res) => {
     const f5 = await axios.get('http://nginx2/api/f5')
-    res.send(f5)
+    // const f5 = 'hello'
+    res.send('aa')
 })
 app.get('/method', async(req, res) => {
     const apiKey = '0ae3b91ad3msh0092950f607a17cp1204ffjsn70f76814dba4'
