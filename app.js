@@ -113,8 +113,9 @@ app.get('/test/url', (req, res) => {
  *         description: Success
  * 
  */
-app.get('/f5', (req, res) => {
-    res.json(products)
+app.get('/f5', async (req, res) => {
+    const ff = await axios.get('http://nginx/service2/headers')
+    res.json(ff.data)
 })
 
 app.post('/compare', (req, res) => {
