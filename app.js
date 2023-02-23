@@ -70,7 +70,10 @@ app.get('/headers', (req, res) => {
 app.get('/', (req, res) => {
     res.send('Requester ip = ' + req.ip)
 })
-
+app.get('/chain', async(req, res) => {
+    const f5 = await axios.get('http://nginx2/api/f5')
+    res.send(f5)
+})
 app.get('/method', async(req, res) => {
     const apiKey = '0ae3b91ad3msh0092950f607a17cp1204ffjsn70f76814dba4'
     const hostAPI = 'imdb8.p.rapidapi.com'
