@@ -114,7 +114,7 @@ app.get('/test/url', (req, res) => {
  * 
  */
 app.get('/f5', async (req, res) => {
-    const ff = await axios.get('http://nginx/service2/headers')
+    const ff = await axios.get('http://express2:4000/headers')
     res.json(ff.data)
 })
 
