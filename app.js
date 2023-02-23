@@ -3,12 +3,14 @@ const cors = require('cors');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const os = require('os');
+var morgan = require('morgan')
 swaggerJsdoc = require("swagger-jsdoc")
 // const swaggerDocument = require('./swagger.json');
-
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 const port = 4000;
 app.use(cors());
-
+app.use(morgan('dev'));
 //import json file
 const fs = require('fs');
 let rawdata = fs.readFileSync('data.json');
@@ -80,7 +82,7 @@ app.get('/test/url', (req, res) => {
  * @swagger
  * /f5:
  *   get:
- *     description: Get all F5 products
+ *     description: Get some F5 products
  *     responses:
  *       200:
  *         description: Success
@@ -91,6 +93,7 @@ app.get('/f5', (req, res) => {
 })
 
 app.post('/compare', (req, res) => {
+    console.log(req.body)
     const num1 = req.body.num1
     const num2 = req.body.num2
 
@@ -100,7 +103,7 @@ app.post('/compare', (req, res) => {
     else {
         res.send(`${num2} more than ${num1}`)
     }
-    res.send(req.headers)
+    
 })
 
 

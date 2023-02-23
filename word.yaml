@@ -1,0 +1,22 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Grocery List API
+  description: An example API to illustrate the OpenAPI Specification
+servers:
+url: https://api.example.io/v1
+paths:
+  /list:
+    get:
+      description: Returns a list of stuff on your grocery list             
+      responses:
+        '200':
+          description: Successfully returned a list
+          content:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                   item_name:
+                      type: string
