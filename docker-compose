@@ -1,15 +1,15 @@
-version: '3.8'
+version: '3.0'
 services:
   web1:
-    image: express
+    image: express-loadtest
     ports:
-      - "4001:4000"
+      - "4001:8443"
   web2:
-    image: express
+    image: express-loadtest
     ports:
-      - "4002:4000"
+      - "4002:8443"
   web3:
-    image: express
+    image: express-loadtest
     ports:
-      - "4003:4000"
+      - "4003:8443"
 
