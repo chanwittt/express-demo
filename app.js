@@ -4,26 +4,27 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const os = require('os');
 const axios = require('axios')
-var morgan = require('morgan')
-var fs = require('fs');
-var http = require('http');
-var https = require('https');
+const morgan = require('morgan')
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const cookieParser = require('cookie-parser')
 
+const privateKey = fs.readFileSync('cert/mylab.local.key', 'utf8');
+const certificate = fs.readFileSync('cert/mylab.local.crt', 'utf8');
 
-var privateKey  = fs.readFileSync('cert/mylab.local.key', 'utf8');
-var certificate = fs.readFileSync('cert/mylab.local.crt', 'utf8');
-
-var credentials = {key: privateKey, cert: certificate};
+const credentials = { key: privateKey, cert: certificate };
 const express = require('express');
 const app = express();
 
 
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
+app.use(cookieParser())
 const port = 4000;
 app.use(cors());
 app.use(morgan('dev'));
@@ -46,7 +47,15 @@ app.get('/loadtest', async (req, res) => {
         let results = JSON.parse(data);
         res.send(results)
     });
-    
+
+})
+app.get('/cookie', function (req, res) {
+    // Cookies that have not been signed
+    res.json({'Cookies':req.cookies})
+})
+app.get('/header', function (req, res) {
+    // Cookies that have not been signed
+    res.json({'Headers': req.headers})
 })
 
 httpServer.listen(8080, () => {
